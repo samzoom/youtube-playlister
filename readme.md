@@ -2,7 +2,7 @@
 
 This plugin will allow you to create a custom playlist of YouTube Videos using a simple shortcode, you can enter YouTube URL's, a YouTube Username, even a Youtube Playlist ID to append onto your Custom Playlist in either a post or a page, or even a custom post type.
 
-![screenshot](http://i.imgur.com/0Mk6tLZ.jpg)
+![screenshot](https://raw.github.com/chrismccoy/youtube-playlister/master/screenshot.jpg)
 
 ### Example of a shortcode ###
 
