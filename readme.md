@@ -65,6 +65,7 @@ https://www.youtube.com/watch?v=GMoRiTJ_7Tw
 // Show title and info
 // Available Options: true,false
 // Default: true
+
 'showinfo' => ''
 
 // Autohide Video Information 
