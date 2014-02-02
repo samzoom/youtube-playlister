@@ -37,6 +37,16 @@ if ( !function_exists( 'youtube_playlist_shortcode' ) ) {
 }
 
 /**
+ * helper tab function
+ *
+ * @since 1.0
+ */
+
+function tabify($amount = 1) {
+	return str_repeat("\t", $amount);
+}
+
+/**
  * Youtube Playlist Class for scripts, styles, oembed removal and shortcode
  *
  * @since 1.0
@@ -125,45 +135,45 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 			$video_id = 'rp_video';
 
 			$jquery_code = '<script type="text/javascript">' . PHP_EOL;
-			$jquery_code .= "\t\t\t\t" . 'jQuery(function($) {' . PHP_EOL;
-			$jquery_code .= "\t\t\t\t\t" . '$("ul#'. $playlist_id.'.post-'. $post->ID.'").responsiveplaylist({' . PHP_EOL;
+			$jquery_code .= tabify(4) . 'jQuery(function($) {' . PHP_EOL;
+			$jquery_code .= tabify(5) . '$("ul#'. $playlist_id.'.post-'. $post->ID.'").responsiveplaylist({' . PHP_EOL;
 
-			if(!empty($autoplay) && $autoplay == 'true') $jquery_code .= "\t\t\t\t\t\t" . 'autoPlay: true,' . PHP_EOL;
-			if(!empty($fullscreen) && $fullscreen == 'false') $jquery_code .= "\t\t\t\t\t\t" . 'allowFullScreen: false,' . PHP_EOL;
-			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= "\t\t\t\t\t\t" . 'youtube: {' . PHP_EOL;
-       			if(!empty($autohide) && $autohide == "hide") $jquery_code .= "\t\t\t\t\t\t\t" . 'autohide: "1",' . PHP_EOL;
-      			if(!empty($autohide) && $autohide == "showall") $jquery_code .= "\t\t\t\t\t\t\t" . 'autohide: "0",' . PHP_EOL;
-       			if(!empty($related) && $related == 'false') $jquery_code .= "\t\t\t\t\t\t\t" . 'rel: "0",' . PHP_EOL;
-       			if(!empty($theme) && $theme == 'light') $jquery_code .= "\t\t\t\t\t\t\t" . 'theme: "'. $theme. '",' . PHP_EOL;
-       			if(!empty($color) && $color == 'red') $jquery_code .= "\t\t\t\t\t\t\t" . 'color: "'. $color .'",' . PHP_EOL;
-       			if(!empty($showinfo) && $showinfo =='false') $jquery_code .= "\t\t\t\t\t\t\t" . 'showinfo: "0",' . PHP_EOL;
-       			if(!empty($quality)) $jquery_code .= "\t\t\t\t\t\t\t" . 'vq: "'. $quality.'",' . PHP_EOL;
-			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= "\t\t\t\t\t\t" . '},' . PHP_EOL;
-			if(!empty($username)) $jquery_code .= "\t\t\t\t\t\t" . 'youtubeUsername: "'. $username .'",' . PHP_EOL;
-			if(!empty($playlist)) $jquery_code .= "\t\t\t\t\t\t" . 'youtubePlaylist: "'. $playlist .'",' . PHP_EOL;
+			if(!empty($autoplay) && $autoplay == 'true') $jquery_code .= tabify(6) . 'autoPlay: true,' . PHP_EOL;
+			if(!empty($fullscreen) && $fullscreen == 'false') $jquery_code .= tabify(6) . 'allowFullScreen: false,' . PHP_EOL;
+			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= tabify(6) . 'youtube: {' . PHP_EOL;
+       			if(!empty($autohide) && $autohide == "hide") $jquery_code .= tabify(7) . 'autohide: "1",' . PHP_EOL;
+      			if(!empty($autohide) && $autohide == "showall") $jquery_code .= tabify(7) . 'autohide: "0",' . PHP_EOL;
+       			if(!empty($related) && $related == 'false') $jquery_code .= tabify(7) . 'rel: "0",' . PHP_EOL;
+       			if(!empty($theme) && $theme == 'light') $jquery_code .= tabify(7) . 'theme: "'. $theme. '",' . PHP_EOL;
+       			if(!empty($color) && $color == 'red') $jquery_code .= tabify(7) . 'color: "'. $color .'",' . PHP_EOL;
+       			if(!empty($showinfo) && $showinfo =='false') $jquery_code .= tabify(7) . 'showinfo: "0",' . PHP_EOL;
+       			if(!empty($quality)) $jquery_code .= tabify(7) . 'vq: "'. $quality.'",' . PHP_EOL;
+			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= tabify(6) . '},' . PHP_EOL;
+			if(!empty($username)) $jquery_code .= tabify(6) . 'youtubeUsername: "'. $username .'",' . PHP_EOL;
+			if(!empty($playlist)) $jquery_code .= tabify(6) . 'youtubePlaylist: "'. $playlist .'",' . PHP_EOL;
 
-       			$jquery_code .= "\t\t\t\t\t\t" . 'holderId: "'. $video_id.'.post-'.$post->ID.'",' . PHP_EOL;
-    			$jquery_code .= "\t\t\t\t\t" . '});' . PHP_EOL;
-			$jquery_code .= "\t\t\t\t" . '});' . PHP_EOL;
-			$jquery_code .= "\t\t\t" . '</script>' . PHP_EOL . PHP_EOL;
+       			$jquery_code .= tabify(6) . 'holderId: "'. $video_id.'.post-'.$post->ID.'",' . PHP_EOL;
+    			$jquery_code .= tabify(5) . '});' . PHP_EOL;
+			$jquery_code .= tabify(4) . '});' . PHP_EOL;
+			$jquery_code .= tabify(3) . '</script>' . PHP_EOL . PHP_EOL;
 
-			$output = "\t\t\t" . '<div id="rp_plugin">' . PHP_EOL;
-    			$output .= "\t\t\t\t" . '<div id="rp_videoContainer">' . PHP_EOL;
-        		$output .= "\t\t\t\t\t" . '<div id="'. $video_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
-        		$output .= "\t\t\t\t\t" . '</div>' . PHP_EOL;
-    			$output .= "\t\t\t\t" . '</div>' . PHP_EOL;
-    			$output .= "\t\t\t\t" . '<div id="rp_playlistContainer">' . PHP_EOL;
-        		$output .= "\t\t\t\t\t" . '<ul id="'. $playlist_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
+			$output = tabify(3) . '<div id="rp_plugin">' . PHP_EOL;
+    			$output .= tabify(4) . '<div id="rp_videoContainer">' . PHP_EOL;
+        		$output .= tabify(5) . '<div id="'. $video_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
+        		$output .= tabify(5) . '</div>' . PHP_EOL;
+    			$output .= tabify(4) . '</div>' . PHP_EOL;
+    			$output .= tabify(4) . '<div id="rp_playlistContainer">' . PHP_EOL;
+        		$output .= tabify(5) . '<ul id="'. $playlist_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
 
 			if(!empty($content)) {
         			foreach($content_lines as $link) {
-               				$output .= "\t\t\t\t\t\t" . '<li><a href="' . $link . '"></a></li>' . PHP_EOL;
+               				$output .= tabify(6) . '<li><a href="' . $link . '"></a></li>' . PHP_EOL;
         			}
 			}
 
-			$output .= "\t\t\t\t\t" . '</ul>' . PHP_EOL;
-  			$output .= "\t\t\t\t" . '</div>' . PHP_EOL;
-			$output .= "\t\t\t" . '</div>';
+			$output .= tabify(5) . '</ul>' . PHP_EOL;
+  			$output .= tabify(4) . '</div>' . PHP_EOL;
+			$output .= tabify(3) . '</div>';
 			return $jquery_code . $output;
 		}
 
