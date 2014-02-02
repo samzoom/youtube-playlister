@@ -77,8 +77,13 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 		 */
 
 		function scripts() {
-			wp_enqueue_script( 'youtube_playlist', plugins_url( 'js/jquery.youtube.js', __FILE__ ), array( 'jquery' ), '1.0', false );
-			wp_enqueue_script( 'respond', 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js');
+
+			global $post;
+
+			if( isset($post->post_content) AND has_shortcode( $post->post_content, 'youtubeplaylist') ) {
+				wp_enqueue_script( 'youtube_playlist', plugins_url( 'js/jquery.youtube.js', __FILE__ ), array( 'jquery' ), '1.0', false );
+				wp_enqueue_script( 'respond', 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js');
+			}
 		}
 
 		/**
@@ -88,7 +93,12 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 		 */
 
 		function styles() {
-			wp_enqueue_style( 'youtube_playlist', plugins_url( 'css/youtubePlaylist.css', __FILE__ ), false, '1.0', 'screen' );
+
+			global $post;
+
+			if( isset($post->post_content) AND has_shortcode( $post->post_content, 'youtubeplaylist') ) {
+				wp_enqueue_style( 'youtube_playlist', plugins_url( 'css/youtubePlaylist.css', __FILE__ ), false, '1.0', 'screen' );
+			}
 		}
 
 		/**
