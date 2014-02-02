@@ -125,53 +125,60 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 
 			), $attr ) );
 
-			$output = '';
+			// get youtube links 1 per line if entered
 
             		$content = trim(strip_tags($content));
             		$content_lines = explode("\n", $content);
 
-			$pid = $post->ID;
+			// playlist and video container ids
+
 			$playlist_id = 'rp_playlist';
 			$video_id = 'rp_video';
 
-			$jquery_code = '<script type="text/javascript">' . PHP_EOL;
-			$jquery_code .= tabify(4) . 'jQuery(function($) {' . PHP_EOL;
-			$jquery_code .= tabify(5) . '$("ul#'. $playlist_id.'.post-'. $post->ID.'").responsiveplaylist({' . PHP_EOL;
+			// unique div for each playlist
 
-			if(!empty($autoplay) && $autoplay == 'true') $jquery_code .= tabify(6) . 'autoPlay: true,' . PHP_EOL;
-			if(!empty($fullscreen) && $fullscreen == 'false') $jquery_code .= tabify(6) . 'allowFullScreen: false,' . PHP_EOL;
-			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= tabify(6) . 'youtube: {' . PHP_EOL;
-       			if(!empty($autohide) && $autohide == "hide") $jquery_code .= tabify(7) . 'autohide: "1",' . PHP_EOL;
-      			if(!empty($autohide) && $autohide == "showall") $jquery_code .= tabify(7) . 'autohide: "0",' . PHP_EOL;
-       			if(!empty($related) && $related == 'false') $jquery_code .= tabify(7) . 'rel: "0",' . PHP_EOL;
-       			if(!empty($theme) && $theme == 'light') $jquery_code .= tabify(7) . 'theme: "'. $theme. '",' . PHP_EOL;
-       			if(!empty($color) && $color == 'red') $jquery_code .= tabify(7) . 'color: "'. $color .'",' . PHP_EOL;
-       			if(!empty($showinfo) && $showinfo =='false') $jquery_code .= tabify(7) . 'showinfo: "0",' . PHP_EOL;
-       			if(!empty($quality)) $jquery_code .= tabify(7) . 'vq: "'. $quality.'",' . PHP_EOL;
-			if(!empty($autohide) || !empty($related) || !empty($theme) || !empty($color) || !empty($quality) || !empty($showinfo) ) $jquery_code .= tabify(6) . '},' . PHP_EOL;
-			if(!empty($username)) $jquery_code .= tabify(6) . 'youtubeUsername: "'. $username .'",' . PHP_EOL;
-			if(!empty($playlist)) $jquery_code .= tabify(6) . 'youtubePlaylist: "'. $playlist .'",' . PHP_EOL;
+       			$holder = 'holderId: "'. $video_id.'.post-'.$post->ID.'",';
 
-       			$jquery_code .= tabify(6) . 'holderId: "'. $video_id.'.post-'.$post->ID.'",' . PHP_EOL . tabify(5) . '});' . PHP_EOL . tabify(4) . '});' . PHP_EOL . tabify(3) . '</script>' . PHP_EOL . PHP_EOL;
+			// jquery values for each shortcode attrib
 
-			$output = tabify(3) . '<div id="rp_plugin">' . PHP_EOL;
-			$output .= tabify(4) . '<div id="rp_videoContainer">' . PHP_EOL;
-        		$output .= tabify(5) . '<div id="'. $video_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
-        		$output .= tabify(5) . '</div>' . PHP_EOL;
-    			$output .= tabify(4) . '</div>' . PHP_EOL;
-    			$output .= tabify(4) . '<div id="rp_playlistContainer">' . PHP_EOL;
-        		$output .= tabify(5) . '<ul id="'. $playlist_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
+			$autoplay = empty($autoplay) ? $autoplay : 'autoPlay: true,';
+			$fullscreen = empty($fullscreen) ? $fullscreen : 'allowFullScreen: false,';
+			$autohide = ($autohide == 'showall' ? 'autohide: "0",' : ($autohide == 'hide' ? 'autohide: "1",' : 'autohide: "2",'));
+			$related = empty($related) ? $related : 'rel: "0",';
+			$theme = empty($theme) ? $theme : 'theme: "'. $theme. '",';
+			$color = empty($color) ? $color : 'color: "'. $color .'",';
+			$showinfo = empty($showinfo) ? $showinfo : 'showinfo: "0",';
+			$quality = empty($quality) ? $quality : 'vq: "'. $quality.'",';
+			$username = empty($username) ? $username : 'youtubeUsername: "'. $username .'",';
+			$playlist = empty($playlist) ? $playlist : 'youtubePlaylist: "'. $playlist .'",';
+
+			// jquery code with attributes
+
+			$jquery_code = '<script type="text/javascript">jQuery(function($) { $("ul#'. $playlist_id.'.post-'. $post->ID.'").responsiveplaylist({ '.$autoplay . $fullscreen.' youtube: { '.$autohide . $related . $theme . $color . $showinfo . $quality .'}, '.$holder .  $username . $playlist.' }); }); </script>' . PHP_EOL . PHP_EOL;
+
+			// html container for playlist
+
+			$html = '<div id="rp_plugin"><div id="rp_videoContainer"><div id="'. $video_id . '" class="post-'. $post->ID .'"></div></div><div id="rp_playlistContainer"><ul id="'. $playlist_id . '" class="post-'. $post->ID .'">';
+
+			// add youtube links to playlist if entered
 
 			if(!empty($content)) {
         			foreach($content_lines as $link) {
-               				$output .= tabify(6) . '<li><a href="' . $link . '"></a></li>' . PHP_EOL;
+               				$html .= '<li><a href="' . $link . '"></a></li>';
         			}
 			}
 
-			$output .= tabify(5) . '</ul>' . PHP_EOL . tabify(4) . '</div>' . PHP_EOL . tabify(3) . '</div>';
-			return $jquery_code . $output;
+			// closing html for playlist
+
+			$html .= '</ul></div></div>';
+
+			// return jquery + html code
+
+			return $jquery_code . $html;
 		}
 
 	}
 
 }
+
+
