@@ -152,13 +152,10 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 			if(!empty($username)) $jquery_code .= tabify(6) . 'youtubeUsername: "'. $username .'",' . PHP_EOL;
 			if(!empty($playlist)) $jquery_code .= tabify(6) . 'youtubePlaylist: "'. $playlist .'",' . PHP_EOL;
 
-       			$jquery_code .= tabify(6) . 'holderId: "'. $video_id.'.post-'.$post->ID.'",' . PHP_EOL;
-    			$jquery_code .= tabify(5) . '});' . PHP_EOL;
-			$jquery_code .= tabify(4) . '});' . PHP_EOL;
-			$jquery_code .= tabify(3) . '</script>' . PHP_EOL . PHP_EOL;
+       			$jquery_code .= tabify(6) . 'holderId: "'. $video_id.'.post-'.$post->ID.'",' . PHP_EOL . tabify(5) . '});' . PHP_EOL . tabify(4) . '});' . PHP_EOL . tabify(3) . '</script>' . PHP_EOL . PHP_EOL;
 
 			$output = tabify(3) . '<div id="rp_plugin">' . PHP_EOL;
-    			$output .= tabify(4) . '<div id="rp_videoContainer">' . PHP_EOL;
+			$output .= tabify(4) . '<div id="rp_videoContainer">' . PHP_EOL;
         		$output .= tabify(5) . '<div id="'. $video_id . '" class="post-'. $post->ID .'">' . PHP_EOL;
         		$output .= tabify(5) . '</div>' . PHP_EOL;
     			$output .= tabify(4) . '</div>' . PHP_EOL;
@@ -171,9 +168,7 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
         			}
 			}
 
-			$output .= tabify(5) . '</ul>' . PHP_EOL;
-  			$output .= tabify(4) . '</div>' . PHP_EOL;
-			$output .= tabify(3) . '</div>';
+			$output .= tabify(5) . '</ul>' . PHP_EOL . tabify(4) . '</div>' . PHP_EOL . tabify(3) . '</div>';
 			return $jquery_code . $output;
 		}
 
