@@ -37,16 +37,6 @@ if ( !function_exists( 'youtube_playlist_shortcode' ) ) {
 }
 
 /**
- * helper tab function
- *
- * @since 1.0
- */
-
-function tabify($amount = 1) {
-	return str_repeat("\t", $amount);
-}
-
-/**
  * Youtube Playlist Class for scripts, styles, oembed removal and shortcode
  *
  * @since 1.0
