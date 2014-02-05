@@ -37,7 +37,7 @@ if ( !function_exists( 'youtube_playlist_shortcode' ) ) {
 }
 
 /**
- * Youtube Playlist Class for scripts, styles, oembed removal and shortcode
+ * Youtube Playlist Class for scripts, styles, and shortcode
  *
  * @since 1.0
  */
@@ -53,22 +53,10 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
  		*/
 
 		function __construct() {
-            		add_filter( 'oembed_providers', array( $this, 'remove_youtube_oembed' ) , 10, 1);
 			add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'styles' ) );
 			add_shortcode( 'youtubeplaylist', array( $this, 'shortcode' ) );
 		}
-
-		/**
-		 * remove automatic embedded of youtube videos
-		 *
-		 * @since 1.0
-		 */
-
-        	function remove_youtube_oembed( $providers ) {
-            		unset($providers['#https?://(www\.)?youtube\.com/watch.*#i']);
-            		return $providers;
-        	}
 
 		/**
 		 * enqueue youtube playlist and ie respond javascript
@@ -80,7 +68,7 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 
 			global $post;
 
-			if( has_shortcode( $post->post_content, 'youtubeplaylist') ) {
+			if( isset($post->post_content) AND has_shortcode( $post->post_content, 'youtubeplaylist') ) {
 				wp_enqueue_script( 'youtube_playlist', plugins_url( 'js/jquery.youtube.js', __FILE__ ), array( 'jquery' ), '1.0', false );
 				wp_enqueue_script( 'respond', 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js');
 			}
@@ -96,7 +84,7 @@ if( !class_exists( 'YouTube_Playlist_Shortcode' ) ) {
 
 			global $post;
 
-			if( has_shortcode( $post->post_content, 'youtubeplaylist') ) {
+			if( isset($post->post_content) AND has_shortcode( $post->post_content, 'youtubeplaylist') ) {
 				wp_enqueue_style( 'youtube_playlist', plugins_url( 'css/youtubePlaylist.css', __FILE__ ), false, '1.0', 'screen' );
 			}
 		}
